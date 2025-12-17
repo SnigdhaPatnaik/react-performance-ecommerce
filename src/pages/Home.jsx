@@ -1,15 +1,24 @@
 import React, { useCallback, useState } from "react";
 import { FixedSizeList as List } from "react-window";
-import { products } from "../data/products";
+import { useQuery } from "@tanstack/react-query";
+
 import ProductCard from "../components/ProductCard";
 import Cart from "../components/Cart";
 import Header from "../components/Header";
+import { fetchProducts } from "../api/productsApi";
 
 export default function Home() {
   const [cart, setCart] = useState([]);
+  const { data: products = [], isLoading } = useQuery({
+    queryKey: ["products"],
+    queryFn: fetchProducts,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
   const addToCart = useCallback((product) => {
     setCart((prev) => [...prev, product]);
   }, []);
+
+  if (isLoading) return <h3>Loading products...</h3>;
 
   return (
     <div>
@@ -24,7 +33,10 @@ export default function Home() {
       >
         {({ index, style }) => (
           <div style={style}>
-            <ProductCard product={products[index]} addToCart={addToCart} />
+            <ProductCard 
+                product={products[index]} 
+                addToCart={addToCart} 
+            />
           </div>
         )}
       </List>
