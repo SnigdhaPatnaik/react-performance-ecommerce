@@ -1,4 +1,5 @@
 # 🛒 Simple Ecommerce App (React Performance Optimization Demo)
+<img width="2878" height="1404" alt="image" src="https://github.com/user-attachments/assets/66d1d682-5906-4f86-9bd2-fde8e89cfbec" />
 
 This mini **ecommerce app** is designed **only to demonstrate React performance optimization techniques** that interviewers usually ask about.
 
